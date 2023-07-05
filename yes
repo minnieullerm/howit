@@ -1,0 +1,58 @@
+class Note:
+    def __init__(self, title, content):
+        self.title = title
+        self.content = content
+
+    def __str__(self):
+        return f"Заголовок: {self.title}\n{self.content}"
+
+class NoteManager:
+    def __init__(self):
+        self.notes = []
+
+    def add_note(self, title, content):
+        note = Note(title, content)
+        self.notes.append(note)
+
+    def remove_note_by_index(self, index):
+        if 0 <= index < len(self.notes):
+            del self.notes[index]
+
+    def view_notes(self):
+        if not self.notes:
+            print("Список записей пуст.")
+        else:
+            print("Список записей:")
+            for i, note in enumerate(self.notes):
+                print(f"{i + 1}. {note}")
+
+note_manager = NoteManager()
+
+while True:
+    print("Система записей")
+    print("1. Добавить запись")
+    print("2. Удалить запись")
+    print("3. Просмотреть записи")
+    print("4. Выйти")
+
+    choice = input("Выберите действие: ")
+
+    if choice == "1":
+        title = input("Введите заголовок записи: ")
+        content = input("Введите содержимое записи: ")
+        note_manager.add_note(title, content)
+        print("Запись успешно добавлена.")
+
+    elif choice == "2":
+        index = int(input("Введите индекс записи для удаления: ")) - 1
+        note_manager.remove_note_by_index(index)
+        print("Запись удалена.")
+
+    elif choice == "3":
+        note_manager.view_notes()
+
+    elif choice == "4":
+        break
+
+    else:
+        print("Неверный выбор. Пожалуйста, выберите снова.")
